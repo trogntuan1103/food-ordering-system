@@ -12,6 +12,7 @@ import java.math.RoundingMode;
 @RequiredArgsConstructor
 public class Money {
     private final BigDecimal amount;
+    public static final Money ZERO = new Money(BigDecimal.ZERO);
 
     private BigDecimal setScale(BigDecimal input) {
         return input.setScale(2, RoundingMode.HALF_EVEN);

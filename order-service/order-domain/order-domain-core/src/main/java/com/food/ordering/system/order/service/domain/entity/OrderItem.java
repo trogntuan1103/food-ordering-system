@@ -4,7 +4,6 @@ import com.food.ordering.system.domain.entity.BaseEntity;
 import com.food.ordering.system.domain.valueobject.Money;
 import com.food.ordering.system.domain.valueobject.OrderId;
 import com.food.ordering.system.order.service.domain.valueobject.OrderItemId;
-import lombok.Builder;
 import lombok.Getter;
 
 @Getter
@@ -21,6 +20,17 @@ public class OrderItem extends BaseEntity<OrderItemId> {
         quantity = builder.quantity;
         price = builder.price;
         subTotal = builder.subTotal;
+    }
+
+     void initializeOrderItem(OrderId orderId, OrderItemId orderItemId) {
+        this.orderId = orderId;
+        super.setId(orderItemId);
+    }
+
+    boolean isPriceValid() {
+        return price.equals(product.getPrice()) &&
+                price.isGreaterThanZero() &&
+                subTotal.equals(price.multiply(quantity));
     }
 
     public static final class Builder {
